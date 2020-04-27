@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace eShopProjektet.Entities
+namespace Datalayer.Entities
 {
     public class Ordre
     {
@@ -10,6 +10,7 @@ namespace eShopProjektet.Entities
         public int Kunde_Id { get; set; }
         public DateTime KoebsDato { get; set; }
 
-        public ICollection<OrdreProdukt> Ordres { get; set; }
+        public Kunde Kunde { get; set; }
+        public ICollection<OrdreProdukt> Produkter { get; set; }
     }
 }
