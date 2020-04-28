@@ -4,14 +4,12 @@ using System.Text;
 
 namespace Datalayer.Entities
 {
-    public class OrdreProdukt
+    public class ProduktBillede
     {
-        public int OrdreId { get; set; }
+        public int ProduktBilledeId { get; set; }
+        public byte Billede { get; set; }
 
         public int ProduktId { get; set; }
-        public int Styk { get; set; }
-
-        public Ordre Ordre { get; set; }
         public Produkt Produkt { get; set; }
     }
 }
