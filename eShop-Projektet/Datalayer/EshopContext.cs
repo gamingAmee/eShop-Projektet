@@ -12,7 +12,8 @@ namespace Datalayer
     {
         public DbSet<Kunde> Kunder { get; set; }
         public DbSet<Produkt> Produkter { get; set; }
-        public DbSet<Ordre> Ordrer { get; set; }
+        public DbSet<kategori> kategorier { get; set; }
+        public DbSet<Producent> Producenter { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
