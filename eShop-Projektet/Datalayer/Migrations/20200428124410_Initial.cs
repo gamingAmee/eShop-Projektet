@@ -37,24 +37,16 @@ namespace Datalayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Produkter",
+                name: "Producent",
                 columns: table => new
                 {
-                    ProduktId = table.Column<int>(nullable: false)
+                    ProducentId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Navn = table.Column<string>(nullable: true),
-                    Pris = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
-                    KategoriId = table.Column<int>(nullable: false)
+                    Navn = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Produkter", x => x.ProduktId);
-                    table.ForeignKey(
-                        name: "FK_Produkter_kategori_KategoriId",
-                        column: x => x.KategoriId,
-                        principalTable: "kategori",
-                        principalColumn: "kategoriId",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_Producent", x => x.ProducentId);
                 });
 
             migrationBuilder.CreateTable(
@@ -78,22 +70,30 @@ namespace Datalayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProduktBillede",
+                name: "Produkter",
                 columns: table => new
                 {
-                    ProduktBilledeId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Billede = table.Column<byte>(nullable: false),
                     ProduktId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Navn = table.Column<string>(nullable: true),
+                    Pris = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
+                    KategoriId = table.Column<int>(nullable: false),
+                    ProducentId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProduktBillede", x => x.ProduktBilledeId);
+                    table.PrimaryKey("PK_Produkter", x => x.ProduktId);
                     table.ForeignKey(
-                        name: "FK_ProduktBillede_Produkter_ProduktId",
-                        column: x => x.ProduktId,
-                        principalTable: "Produkter",
-                        principalColumn: "ProduktId",
+                        name: "FK_Produkter_kategori_KategoriId",
+                        column: x => x.KategoriId,
+                        principalTable: "kategori",
+                        principalColumn: "kategoriId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Produkter_Producent_ProducentId",
+                        column: x => x.ProducentId,
+                        principalTable: "Producent",
+                        principalColumn: "ProducentId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -122,6 +122,26 @@ namespace Datalayer.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ProduktBillede",
+                columns: table => new
+                {
+                    ProduktBilledeId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Billede = table.Column<byte>(nullable: false),
+                    ProduktId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProduktBillede", x => x.ProduktBilledeId);
+                    table.ForeignKey(
+                        name: "FK_ProduktBillede_Produkter_ProduktId",
+                        column: x => x.ProduktId,
+                        principalTable: "Produkter",
+                        principalColumn: "ProduktId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_OrdreProdukt_ProduktId",
                 table: "OrdreProdukt",
@@ -141,6 +161,11 @@ namespace Datalayer.Migrations
                 name: "IX_Produkter_KategoriId",
                 table: "Produkter",
                 column: "KategoriId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Produkter_ProducentId",
+                table: "Produkter",
+                column: "ProducentId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -162,6 +187,9 @@ namespace Datalayer.Migrations
 
             migrationBuilder.DropTable(
                 name: "kategori");
+
+            migrationBuilder.DropTable(
+                name: "Producent");
         }
     }
 }

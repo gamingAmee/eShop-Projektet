@@ -15,6 +15,9 @@ namespace Datalayer.Entities
         public int KategoriId { get; set; }
         public kategori Kategori { get; set; }
 
+        public int ProducentId { get; set; }
+        public Producent Producent { get; set; }
+
         public ICollection<ProduktBillede> ProduktBilleder { get; set; }
         public ICollection<OrdreProdukt> Ordrer { get; set; }
     }

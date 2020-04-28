@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Datalayer.Migrations
 {
     [DbContext(typeof(EshopContext))]
-    [Migration("20200428122429_Initial")]
+    [Migration("20200428124410_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -83,6 +83,21 @@ namespace Datalayer.Migrations
                     b.ToTable("OrdreProdukt");
                 });
 
+            modelBuilder.Entity("Datalayer.Entities.Producent", b =>
+                {
+                    b.Property<int>("ProducentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Navn")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ProducentId");
+
+                    b.ToTable("Producent");
+                });
+
             modelBuilder.Entity("Datalayer.Entities.Produkt", b =>
                 {
                     b.Property<int>("ProduktId")
@@ -99,9 +114,14 @@ namespace Datalayer.Migrations
                     b.Property<decimal>("Pris")
                         .HasColumnType("decimal(8, 2)");
 
+                    b.Property<int>("ProducentId")
+                        .HasColumnType("int");
+
                     b.HasKey("ProduktId");
 
                     b.HasIndex("KategoriId");
+
+                    b.HasIndex("ProducentId");
 
                     b.ToTable("Produkter");
                 });
@@ -170,6 +190,12 @@ namespace Datalayer.Migrations
                     b.HasOne("Datalayer.Entities.kategori", "Kategori")
                         .WithMany("Produkts")
                         .HasForeignKey("KategoriId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Datalayer.Entities.Producent", "Producent")
+                        .WithMany("Produkts")
+                        .HasForeignKey("ProducentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
