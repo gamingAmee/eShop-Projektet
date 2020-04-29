@@ -60,7 +60,7 @@ namespace Datalayer.Migrations
 
                     b.HasIndex("KundeId");
 
-                    b.ToTable("Ordrer");
+                    b.ToTable("Ordre");
                 });
 
             modelBuilder.Entity("Datalayer.Entities.OrdreProdukt", b =>
@@ -93,7 +93,7 @@ namespace Datalayer.Migrations
 
                     b.HasKey("ProducentId");
 
-                    b.ToTable("Producent");
+                    b.ToTable("Producenter");
                 });
 
             modelBuilder.Entity("Datalayer.Entities.Produkt", b =>
@@ -156,7 +156,7 @@ namespace Datalayer.Migrations
 
                     b.HasKey("kategoriId");
 
-                    b.ToTable("kategori");
+                    b.ToTable("kategorier");
                 });
 
             modelBuilder.Entity("Datalayer.Entities.Ordre", b =>
@@ -192,7 +192,7 @@ namespace Datalayer.Migrations
                         .IsRequired();
 
                     b.HasOne("Datalayer.Entities.Producent", "Producent")
-                        .WithMany("Produkts")
+                        .WithMany("Produkter")
                         .HasForeignKey("ProducentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

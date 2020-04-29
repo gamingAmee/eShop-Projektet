@@ -6,12 +6,12 @@ namespace Datalayer.Entities
 {
     public class OrdreProdukt
     {
-        public int OrdreId { get; set; }
+        public int OrdreId { get; set; } //PK/FK
 
-        public int ProduktId { get; set; }
+        public int ProduktId { get; set; } //PK/FK
         public int Styk { get; set; }
 
-        public Ordre Ordre { get; set; }
-        public Produkt Produkt { get; set; }
+        public Ordre Ordre { get; set; } //Ref
+        public Produkt Produkt { get; set; } //Ref
     }
 }

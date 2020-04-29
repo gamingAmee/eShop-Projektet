@@ -8,7 +8,7 @@ namespace Datalayer.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "kategori",
+                name: "kategorier",
                 columns: table => new
                 {
                     kategoriId = table.Column<int>(nullable: false)
@@ -17,7 +17,7 @@ namespace Datalayer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_kategori", x => x.kategoriId);
+                    table.PrimaryKey("PK_kategorier", x => x.kategoriId);
                 });
 
             migrationBuilder.CreateTable(
@@ -37,7 +37,7 @@ namespace Datalayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Producent",
+                name: "Producenter",
                 columns: table => new
                 {
                     ProducentId = table.Column<int>(nullable: false)
@@ -46,11 +46,11 @@ namespace Datalayer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Producent", x => x.ProducentId);
+                    table.PrimaryKey("PK_Producenter", x => x.ProducentId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Ordrer",
+                name: "Ordre",
                 columns: table => new
                 {
                     OrdreId = table.Column<int>(nullable: false)
@@ -60,9 +60,9 @@ namespace Datalayer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ordrer", x => x.OrdreId);
+                    table.PrimaryKey("PK_Ordre", x => x.OrdreId);
                     table.ForeignKey(
-                        name: "FK_Ordrer_Kunder_KundeId",
+                        name: "FK_Ordre_Kunder_KundeId",
                         column: x => x.KundeId,
                         principalTable: "Kunder",
                         principalColumn: "KundeId",
@@ -84,15 +84,15 @@ namespace Datalayer.Migrations
                 {
                     table.PrimaryKey("PK_Produkter", x => x.ProduktId);
                     table.ForeignKey(
-                        name: "FK_Produkter_kategori_KategoriId",
+                        name: "FK_Produkter_kategorier_KategoriId",
                         column: x => x.KategoriId,
-                        principalTable: "kategori",
+                        principalTable: "kategorier",
                         principalColumn: "kategoriId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Produkter_Producent_ProducentId",
+                        name: "FK_Produkter_Producenter_ProducentId",
                         column: x => x.ProducentId,
-                        principalTable: "Producent",
+                        principalTable: "Producenter",
                         principalColumn: "ProducentId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -109,9 +109,9 @@ namespace Datalayer.Migrations
                 {
                     table.PrimaryKey("PK_OrdreProdukt", x => new { x.OrdreId, x.ProduktId });
                     table.ForeignKey(
-                        name: "FK_OrdreProdukt_Ordrer_OrdreId",
+                        name: "FK_OrdreProdukt_Ordre_OrdreId",
                         column: x => x.OrdreId,
-                        principalTable: "Ordrer",
+                        principalTable: "Ordre",
                         principalColumn: "OrdreId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -143,14 +143,14 @@ namespace Datalayer.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Ordre_KundeId",
+                table: "Ordre",
+                column: "KundeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_OrdreProdukt_ProduktId",
                 table: "OrdreProdukt",
                 column: "ProduktId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Ordrer_KundeId",
-                table: "Ordrer",
-                column: "KundeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProduktBillede_ProduktId",
@@ -177,7 +177,7 @@ namespace Datalayer.Migrations
                 name: "ProduktBillede");
 
             migrationBuilder.DropTable(
-                name: "Ordrer");
+                name: "Ordre");
 
             migrationBuilder.DropTable(
                 name: "Produkter");
@@ -186,10 +186,10 @@ namespace Datalayer.Migrations
                 name: "Kunder");
 
             migrationBuilder.DropTable(
-                name: "kategori");
+                name: "kategorier");
 
             migrationBuilder.DropTable(
-                name: "Producent");
+                name: "Producenter");
         }
     }
 }

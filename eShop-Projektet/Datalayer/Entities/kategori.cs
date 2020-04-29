@@ -9,6 +9,6 @@ namespace Datalayer.Entities
         public int kategoriId { get; set; }
         public string Navn { get; set; }
 
-        public ICollection<Produkt> Produkts { get; set; }
+        public ICollection<Produkt> Produkts { get; set; } //Ref
     }
 }

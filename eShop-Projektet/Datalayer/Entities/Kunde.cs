@@ -12,6 +12,6 @@ namespace Datalayer.Entities
         public string Kodeord { get; set; }
         public string Adresse { get; set; }
 
-        public ICollection<Ordre> Ordrer { get; set; }
+        public ICollection<Ordre> Ordrer { get; set; } //Ref
     }
 }
