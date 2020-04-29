@@ -131,8 +131,8 @@ namespace Datalayer.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<byte>("Billede")
-                        .HasColumnType("tinyint");
+                    b.Property<string>("Billede")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProduktId")
                         .HasColumnType("int");

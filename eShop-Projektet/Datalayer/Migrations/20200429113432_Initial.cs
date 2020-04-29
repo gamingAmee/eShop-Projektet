@@ -128,7 +128,7 @@ namespace Datalayer.Migrations
                 {
                     ProduktBilledeId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Billede = table.Column<byte>(nullable: false),
+                    Billede = table.Column<string>(nullable: true),
                     ProduktId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

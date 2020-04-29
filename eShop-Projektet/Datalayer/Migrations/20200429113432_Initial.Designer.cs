@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Datalayer.Migrations
 {
     [DbContext(typeof(EshopContext))]
-    [Migration("20200429110718_Initial")]
+    [Migration("20200429113432_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -133,8 +133,8 @@ namespace Datalayer.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<byte>("Billede")
-                        .HasColumnType("tinyint");
+                    b.Property<string>("Billede")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProduktId")
                         .HasColumnType("int");
