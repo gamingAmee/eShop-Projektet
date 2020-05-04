@@ -50,13 +50,22 @@ namespace Datalayer
             modelBuilder.Entity<Producent>().HasData(
                new Producent { ProducentId = 1, Navn = "Asus" },
                new Producent { ProducentId = 2, Navn = "Nintendo" },
-               new Producent { ProducentId = 3, Navn = "Apple" }
+               new Producent { ProducentId = 3, Navn = "Apple" },
+               new Producent { ProducentId = 4, Navn = "MSI" }
                );
 
             modelBuilder.Entity<Produkt>().HasData(
                new Produkt { ProduktId = 1, Navn = "ASUS ZenBook Pro Duo", Pris = 21490, KategoriId = 1, ProducentId = 1 },
                new Produkt { ProduktId = 2, Navn = "Nintendo Switch 2019", Pris = 2999, KategoriId = 2, ProducentId = 2 },
-               new Produkt { ProduktId = 3, Navn = "iPhone 11 Pro Max", Pris = 9649, KategoriId = 3, ProducentId = 3 }
+               new Produkt { ProduktId = 3, Navn = "iPhone 11 Pro Max", Pris = 9649, KategoriId = 3, ProducentId = 3 },
+               new Produkt { ProduktId = 4, Navn = "MSI Infinite A", Pris = 13490, KategoriId = 1, ProducentId = 4 }
+               );
+
+            modelBuilder.Entity<ProduktBillede>().HasData(
+               new ProduktBillede { ProduktBilledeId = 1, Billede = "https://dlcdnimgs.asus.com/websites/DK/PDCustomizedKVSection/video/2172.jpg", ProduktId = 1 },
+               new ProduktBillede { ProduktBilledeId = 2, Billede = "https://www.elgiganten.dk/image/dv_web_D18000100283778/SWI32GBNEON/nintendo-switch-konsol-neonblaa-og-neonroed-joy-con.jpg?$fullsize$", ProduktId = 2 },
+               new ProduktBillede { ProduktBilledeId = 3, Billede = "https://www.pricerunner.dk/product/200x200/1906996069/Apple-iPhone-11-Pro-Max-64GB.jpg", ProduktId = 3 },
+               new ProduktBillede { ProduktBilledeId = 4, Billede = "https://storage.tweak.dk/images/uploads/2017_10/New-MSI-INFINITE-X-High-End-Gaming-Desktop-580.jpg", ProduktId = 4 }
                );
 
         }

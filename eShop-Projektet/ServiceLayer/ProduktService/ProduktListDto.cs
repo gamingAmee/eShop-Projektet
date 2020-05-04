@@ -12,9 +12,9 @@ namespace ServiceLayer.ProduktService
         [Column(TypeName = "decimal(8, 2)")]
         public decimal Pris { get; set; }
 
-        //public string Billede { get; set; }
+        public string Billede { get; set; }
 
-        //public string Kategori { get; set; }
-        //public string Producent { get; set; }
+        public string Kategori { get; set; }
+        public string Producent { get; set; }
     }
 }

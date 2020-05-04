@@ -12,10 +12,10 @@ namespace Datalayer.Entities
         [Column(TypeName = "decimal(8, 2)")]
         public decimal Pris { get; set; }
         
-        public int KategoriId { get; set; } //FK
+        public int? KategoriId { get; set; } //FK
         public kategori Kategori { get; set; } //Ref
 
-        public int ProducentId { get; set; } //FK
+        public int? ProducentId { get; set; } //FK
         public Producent Producent { get; set; } //Ref
 
         public ICollection<ProduktBillede> ProduktBilleder { get; set; } //Ref

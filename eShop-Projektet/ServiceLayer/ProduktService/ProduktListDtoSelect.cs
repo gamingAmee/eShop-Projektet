@@ -15,7 +15,8 @@ namespace ServiceLayer.ProduktService
             {
                 ProduktId = b.ProduktId,
                 Navn = b.Navn,
-                Pris = b.Pris,
+                Pris = b.Pris
+
                 //Billede = b.ProduktBilleder.FirstOrDefault().Billede,
                 //Kategori = b.Kategori.Navn,
                 //Producent = b.Producent.Navn

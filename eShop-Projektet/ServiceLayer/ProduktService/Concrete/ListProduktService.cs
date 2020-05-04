@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Datalayer;
+using Datalayer.QueryObjects;
 
 namespace ServiceLayer.ProduktService.Concrete
 {
@@ -22,6 +23,18 @@ namespace ServiceLayer.ProduktService.Concrete
                 .AsNoTracking()
                 .MapProduktToDto();
             return blogsQuery;
+        }
+
+        public IQueryable<ProduktListDto> SortFilterPage(SortFilterPageOptions options)
+        {
+            var ProdukterQuery = _context.Produkter
+                .AsNoTracking()
+                .MapProduktToDto()
+                .OrderProduktsBy(options.OrderByOptions)
+                .FilterBlogsBy(options.FilterBy, options.FilterValue);
+
+            options.SetupRestOfDto(ProdukterQuery);                             // Added
+            return ProdukterQuery.Page(options.PageNum - 1, options.PageSize);
         }
     }
 }
