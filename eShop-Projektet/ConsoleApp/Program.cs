@@ -19,7 +19,7 @@ namespace ConsoleApp
                 {
                     OrderByOptions = OrderByOptions.ByNameAsc,
                     FilterBy = ProdukterFilterBy.ByNavn,
-                    FilterValue = "Asus"
+                    FilterValue = "Asus",
 
                     PageNum = 1,
                     PageSize = 2

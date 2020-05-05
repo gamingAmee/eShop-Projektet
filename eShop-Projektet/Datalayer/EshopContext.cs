@@ -21,19 +21,19 @@ namespace Datalayer
         public DbSet<kategori> kategorier { get; set; }
         public DbSet<Producent> Producenter { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Server = (localdb)\\mssqllocaldb; Database = EshopDb; Trusted_Connection = True; ")
-                .EnableSensitiveDataLogging(true)
-                .UseLoggerFactory(new ServiceCollection()
-                .AddLogging(builder => builder.AddConsole()
-                    .AddFilter(DbLoggerCategory.Database.Command.Name, LogLevel.Information))
-                    .BuildServiceProvider().GetService<ILoggerFactory>());
-            }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    if (!optionsBuilder.IsConfigured)
+        //    {
+        //        optionsBuilder.UseSqlServer("Server = (localdb)\\mssqllocaldb; Database = EshopDb; Trusted_Connection = True; ")
+        //        .EnableSensitiveDataLogging(true)
+        //        .UseLoggerFactory(new ServiceCollection()
+        //        .AddLogging(builder => builder.AddConsole()
+        //            .AddFilter(DbLoggerCategory.Database.Command.Name, LogLevel.Information))
+        //            .BuildServiceProvider().GetService<ILoggerFactory>());
+        //    }
             
-        }
+        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
