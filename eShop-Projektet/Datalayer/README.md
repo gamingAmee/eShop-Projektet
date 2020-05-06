@@ -27,3 +27,10 @@
 
   - [ ] Brugeren skal afgive oplysninger om email, navn, adresse, valg af betalingsmiddel og forsendelse
   - [ ] Når brugeren trykke på Køb knappen, skal der udsendes en mail som bekræftelse af købet
+  
+  
+ # Administration
+
+ - [ ]   En Admin side, der giver en administrator en liste over alle produkter 
+ - [ ]   Admin siden skal have mulighed for at redigere produkterne og deres data.
+ - [ ]   Der er fokus på at demonstrere update og delete af en graf af data.
