@@ -10,9 +10,9 @@ namespace Datalayer
 {
     public class EshopContext : DbContext
     {
-        public EshopContext()
+        //public EshopContext()
             
-        { }
+        //{ }
         public EshopContext(DbContextOptions<EshopContext> options)
             : base(options)
         { }

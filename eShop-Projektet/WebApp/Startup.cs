@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Datalayer;
 using Microsoft.EntityFrameworkCore;
+using ServiceLayer.ProduktService.Concrete;
 
 namespace WebApp
 {
@@ -25,9 +26,14 @@ namespace WebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
             services.AddDbContext<EshopContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("EshopDb")));
+            options.UseSqlServer(Configuration.GetConnectionString("EshopContext")));
+            services.AddScoped<IListProduktService, ListProduktService>();
+
+            services.AddRazorPages().AddRazorPagesOptions(options =>
+            {
+                options.Conventions.AddPageRoute("/Produkter/List", "");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

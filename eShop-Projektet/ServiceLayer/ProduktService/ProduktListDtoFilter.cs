@@ -18,7 +18,7 @@ namespace ServiceLayer.ProduktService
     }
     public static class ProduktListDtoFilter
     {
-        public static IQueryable<ProduktListDto> FilterBlogsBy(this IQueryable<ProduktListDto> produkter, ProdukterFilterBy filterBy, string filterValue)
+        public static IQueryable<ProduktListDto> FilterProduktsBy(this IQueryable<ProduktListDto> produkter, ProdukterFilterBy filterBy, string filterValue)
         {
             if (string.IsNullOrEmpty(filterValue))
                 return produkter;

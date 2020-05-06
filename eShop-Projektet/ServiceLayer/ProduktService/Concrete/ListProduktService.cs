@@ -8,7 +8,7 @@ using Datalayer.QueryObjects;
 
 namespace ServiceLayer.ProduktService.Concrete
 {
-    public class ListProduktService
+    public class ListProduktService : IListProduktService
     {
         private readonly EshopContext _context;
 
@@ -19,10 +19,17 @@ namespace ServiceLayer.ProduktService.Concrete
 
         public IQueryable<ProduktListDto> AddProdukt()
         {
-            var blogsQuery = _context.Produkter
+            var ProdukterQuery = _context.Produkter
                 .AsNoTracking()
                 .MapProduktToDto();
-            return blogsQuery;
+            return ProdukterQuery;
+        }
+
+        public IQueryable<ProduktListDto> GetProdukts()
+        {
+            var ProdukterQuery = _context.Produkter.AsNoTracking()
+                .MapProduktToDto();
+            return ProdukterQuery;
         }
 
         public IQueryable<ProduktListDto> SortFilterPage(SortFilterPageOptions options)
@@ -30,11 +37,11 @@ namespace ServiceLayer.ProduktService.Concrete
             var ProdukterQuery = _context.Produkter
                 .AsNoTracking()
                 .MapProduktToDto()
-                .OrderProduktsBy(options.OrderByOptions)
-                .FilterBlogsBy(options.FilterBy, options.FilterValue);
+                //.OrderProduktsBy(options.OrderByOptions)
+                .FilterProduktsBy(options.FilterBy, options.FilterValue);
 
-            options.SetupRestOfDto(ProdukterQuery);                             // Added
-            return ProdukterQuery.Page(options.PageNum - 1, options.PageSize);
+            //options.SetupRestOfDto(ProdukterQuery);
+            return ProdukterQuery/*.Page(options.PageNum - 1, options.PageSize)*/;
         }
     }
 }
