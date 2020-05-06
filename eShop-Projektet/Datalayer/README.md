@@ -2,7 +2,7 @@
 
 ## Er diagram
 
-![E Shop Projektet](EShopProjektet.png)
+![E Shopprojektet](eShopprojektet.png)
 
 
 # Krav til forsiden

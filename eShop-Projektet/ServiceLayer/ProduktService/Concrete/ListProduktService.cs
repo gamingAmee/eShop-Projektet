@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Datalayer;
 using Datalayer.QueryObjects;
+using Datalayer.Entities;
 
 namespace ServiceLayer.ProduktService.Concrete
 {
@@ -27,7 +28,8 @@ namespace ServiceLayer.ProduktService.Concrete
 
         public IQueryable<ProduktListDto> GetProdukts()
         {
-            var ProdukterQuery = _context.Produkter.AsNoTracking()
+            var ProdukterQuery = _context.Produkter
+                .AsNoTracking()
                 .MapProduktToDto();
             return ProdukterQuery;
         }
@@ -37,11 +39,16 @@ namespace ServiceLayer.ProduktService.Concrete
             var ProdukterQuery = _context.Produkter
                 .AsNoTracking()
                 .MapProduktToDto()
-                //.OrderProduktsBy(options.OrderByOptions)
+                .OrderProduktsBy(options.OrderByOptions)
                 .FilterProduktsBy(options.FilterBy, options.FilterValue);
 
-            //options.SetupRestOfDto(ProdukterQuery);
-            return ProdukterQuery/*.Page(options.PageNum - 1, options.PageSize)*/;
+            options.SetupRestOfDto(ProdukterQuery);
+            return ProdukterQuery.Page(options.PageNum - 1, options.PageSize);
         }
+
+        //public Produkt GetProduktById(int restaurantId)
+        //{
+        //    return _context.Produkter.Find(restaurantId);
+        //}
     }
 }

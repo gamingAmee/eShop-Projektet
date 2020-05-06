@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using Datalayer.Entities;
+using System.Linq;
 
 namespace ServiceLayer.ProduktService.Concrete
 {
@@ -6,5 +7,6 @@ namespace ServiceLayer.ProduktService.Concrete
     {
         IQueryable<ProduktListDto> GetProdukts();
         IQueryable<ProduktListDto> SortFilterPage(SortFilterPageOptions options);
+        //Produkt GetProduktById(int restaurantId);
     }
 }

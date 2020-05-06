@@ -24,10 +24,10 @@ namespace ServiceLayer.ProduktService
         {
             switch (orderByOptions)
             {
-                case OrderByOptions.ByNameDesc:
+                case OrderByOptions.ByNameAsc:
                     return produkt.OrderBy(x => x.Navn);
 
-                case OrderByOptions.ByNameAsc:
+                case OrderByOptions.ByNameDesc:
                     return produkt.OrderByDescending(x => x.Navn);
 
                 case OrderByOptions.ByPriceDesc:
