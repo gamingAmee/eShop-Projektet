@@ -6,76 +6,79 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Datalayer;
-using Datalayer.Entities;
+using ServiceLayer.ProduktService;
+using ServiceLayer.ProduktService.Concrete;
 
 namespace WebApp.Pages.Admin
 {
     public class EditModel : PageModel
     {
-        private readonly Datalayer.EshopContext _context;
+        [BindProperty]
+        public ProduktDto Produkt { get; set; }
 
-        public EditModel(Datalayer.EshopContext context)
+        public IEnumerable<SelectListItem> Kategorier { get; set; }
+        public IEnumerable<SelectListItem> Producenter { get; set; }
+
+        private readonly IProduktService _produktService;
+        public EditModel(IProduktService produktService)
         {
-            _context = context;
+            _produktService = produktService;
+
         }
 
-        [BindProperty]
-        public Produkt Produkt { get; set; }
-
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public IActionResult OnGet(int? produktid)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            Kategorier = _produktService.GetKategorier().Select(
+                kategorinavn => new SelectListItem
+                {
+                    Value = kategorinavn.kategoriId.ToString(),
+                    Text = kategorinavn.Navn
+                }).ToList();
 
-            Produkt = await _context.Produkter
-                .Include(p => p.Kategori)
-                .Include(p => p.Producent).FirstOrDefaultAsync(m => m.ProduktId == id);
+            Producenter = _produktService.GetProducenter().Select(
+                producentnavn => new SelectListItem
+                {
+                    Value = producentnavn.ProducentId.ToString(),
+                    Text = producentnavn.Navn
+                }).ToList();
+
+            if (produktid != null)
+            {
+                Produkt = _produktService.GetProduktById(produktid.Value);
+            }
 
             if (Produkt == null)
             {
                 return NotFound();
             }
-           ViewData["KategoriId"] = new SelectList(_context.kategorier, "kategoriId", "Navn");
-           ViewData["ProducentId"] = new SelectList(_context.Producenter, "ProducentId", "Navn");
+
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public IActionResult OnPost()
         {
+            Kategorier = _produktService.GetKategorier().Select(
+                kategorinavn => new SelectListItem
+                {
+                    Value = kategorinavn.kategoriId.ToString(),
+                    Text = kategorinavn.Navn
+                }).ToList();
+
+            Producenter = _produktService.GetProducenter().Select(
+                producentnavn => new SelectListItem
+                {
+                    Value = producentnavn.ProducentId.ToString(),
+                    Text = producentnavn.Navn
+                }).ToList();
+
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Attach(Produkt).State = EntityState.Modified;
+            _produktService.Update(Produkt);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ProduktExists(Produkt.ProduktId))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return RedirectToPage("./Index");
-        }
-
-        private bool ProduktExists(int id)
-        {
-            return _context.Produkter.Any(e => e.ProduktId == id);
+            return RedirectToPage("./AdminIndex");
         }
     }
 }

@@ -18,7 +18,9 @@ namespace ServiceLayer.ProduktService
                 Pris = b.Pris,
 
                 Billede = b.ProduktBilleder,
+                KategoriId = b.KategoriId,
                 Kategori = b.Kategori.Navn,
+                ProducentId = b.ProducentId,
                 Producent = b.Producent.Navn
             });
         }

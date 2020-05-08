@@ -15,7 +15,9 @@ namespace ServiceLayer.ProduktService
 
         public ICollection<ProduktBillede> Billede { get; set; }
 
+        public int? KategoriId { get; set; }
         public string Kategori { get; set; }
+        public int? ProducentId { get; set; }
         public string Producent { get; set; }
     }
 }
