@@ -5,9 +5,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Produkt</h4>
+<h4>Opret nyt produkt</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -24,12 +22,18 @@
                 <span asp-validation-for="Produkt.Pris" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Produkt.KategoriId" class="control-label"></label>
-                <select asp-for="Produkt.KategoriId" class ="form-control" asp-items="ViewBag.KategoriId"></select>
+                <label asp-for="Produkt.ProducentId" />
+                <select asp-for="Produkt.ProducentId"
+                        asp-items="Model.Producenter"
+                        class="form-control"></select>
+                <span class="text-danger" asp-validation-for="Produkt.ProducentId"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Produkt.ProducentId" class="control-label"></label>
-                <select asp-for="Produkt.ProducentId" class ="form-control" asp-items="ViewBag.ProducentId"></select>
+                <label asp-for="Produkt.KategoriId" />
+                <select asp-for="Produkt.KategoriId"
+                        asp-items="Model.Kategorier"
+                        class="form-control"></select>
+                <span class="text-danger" asp-validation-for="Produkt.KategoriId"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -38,8 +42,10 @@
     </div>
 </div>
 
+
+
 <div>
-    <a asp-page="Index">Back to List</a>
+    <a asp-page="./AdminIndex">Back to List</a>
 </div>
 
 @section Scripts {

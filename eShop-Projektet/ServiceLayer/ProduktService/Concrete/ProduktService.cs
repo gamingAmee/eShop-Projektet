@@ -83,5 +83,13 @@ namespace ServiceLayer.ProduktService.Concrete
             _context.SaveChanges();
             return new ProduktDto { ProduktId = produkt.ProduktId, Navn = produkt.Navn, Pris = produkt.Pris, Billede = produkt.ProduktBilleder };
         }
+
+        public ProduktDto Create(ProduktDto newProdukt)
+        {
+            Produkt produkt = new Produkt { Navn = newProdukt.Navn, Pris = newProdukt.Pris, KategoriId = newProdukt.KategoriId, ProducentId = newProdukt.ProducentId };
+            _context.Produkter.Add(produkt);
+            _context.SaveChanges();
+            return newProdukt;
+        }
     }
 }

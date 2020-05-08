@@ -12,5 +12,6 @@ namespace ServiceLayer.ProduktService.Concrete
         ProduktDto GetProduktById(int produktId);
         ProduktDto Update(ProduktDto updatedProdukt);
         ProduktDto Delete(int produktId);
+        ProduktDto Create(ProduktDto newProdukt);
     }
 }

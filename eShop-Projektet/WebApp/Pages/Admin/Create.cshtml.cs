@@ -5,43 +5,69 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Datalayer;
-using Datalayer.Entities;
+using ServiceLayer.ProduktService;
+using ServiceLayer.ProduktService.Concrete;
 
 namespace WebApp.Pages.Admin
 {
     public class CreateModel : PageModel
     {
-        private readonly Datalayer.EshopContext _context;
+        [BindProperty]
+        public ProduktDto Produkt { get; set; }
+        public IEnumerable<SelectListItem> Kategorier { get; set; }
+        public IEnumerable<SelectListItem> Producenter { get; set; }
 
-        public CreateModel(Datalayer.EshopContext context)
+        private readonly IProduktService _produktService;
+        public CreateModel(IProduktService produktService)
         {
-            _context = context;
+            _produktService = produktService;
+
         }
 
         public IActionResult OnGet()
         {
-        ViewData["KategoriId"] = new SelectList(_context.kategorier, "kategoriId", "Navn");
-        ViewData["ProducentId"] = new SelectList(_context.Producenter, "ProducentId", "Navn");
+            Kategorier = _produktService.GetKategorier().Select(
+                    kategorinavn => new SelectListItem
+                    {
+                        Value = kategorinavn.kategoriId.ToString(),
+                        Text = kategorinavn.Navn
+                    }).ToList();
+
+
+
+            Producenter = _produktService.GetProducenter().Select(
+                producentnavn => new SelectListItem
+                {
+                    Value = producentnavn.ProducentId.ToString(),
+                    Text = producentnavn.Navn
+                }).ToList();
             return Page();
         }
 
-        [BindProperty]
-        public Produkt Produkt { get; set; }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public IActionResult OnPost()
         {
+            Kategorier = _produktService.GetKategorier().Select(
+                kategorinavn => new SelectListItem
+                {
+                    Value = kategorinavn.kategoriId.ToString(),
+                    Text = kategorinavn.Navn
+                }).ToList();
+
+            Producenter = _produktService.GetProducenter().Select(
+                producentnavn => new SelectListItem
+                {
+                    Value = producentnavn.ProducentId.ToString(),
+                    Text = producentnavn.Navn
+                }).ToList();
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Produkter.Add(Produkt);
-            await _context.SaveChangesAsync();
+            _produktService.Create(Produkt);
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./AdminIndex");
         }
     }
 }

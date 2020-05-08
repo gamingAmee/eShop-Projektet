@@ -6,6 +6,10 @@
 
 <h2>@Model.Produkt.Navn</h2>
 <div>
+    @if (Model.Produkt.Billede.Count == 0)
+    {
+        <img class="card-img-top" src="https://cdn.vanderbilt.edu/vu-wp0/wp-content/uploads/sites/181/2019/09/09091628/Image-Coming-Soon.png">
+    }
     @if (Model.Produkt.Billede.Count == 1)
     {
         <img src="@Model.Produkt.Billede.FirstOrDefault().Billede" alt="Alternate Text" class="img-thumbnail my-4" />
