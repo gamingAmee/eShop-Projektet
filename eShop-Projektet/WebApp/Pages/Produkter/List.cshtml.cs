@@ -13,8 +13,9 @@ namespace WebApp.Pages.Produkter
 {
     public class ListModel : PageModel
     {
-        public IEnumerable<ProduktListDto> Produkts { get; set; }
+        public IEnumerable<ProduktDto> Produkts { get; set; }
 
+        public SortFilterPageOptions SortFilterPage { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public string SearchTerm { get; set; }
@@ -24,10 +25,17 @@ namespace WebApp.Pages.Produkter
 
         public IEnumerable<SelectListItem> OrderByList { get; set; }
 
-        private readonly IListProduktService _produktService;
+        [BindProperty(SupportsGet = true)]
+        public int CurrentPage { get; set; } = 1;
+        public int Count { get; set; }
+        public int PageSize { get; set; } = 10;
+
+        public int TotalPages { get; set; }
+
+        private readonly IProduktService _produktService;
         private IHtmlHelper _htmlHelper;
 
-        public ListModel(IListProduktService produktService, IHtmlHelper htmlHelper)
+        public ListModel(IProduktService produktService, IHtmlHelper htmlHelper)
         {
             _produktService = produktService;
             _htmlHelper = htmlHelper;
@@ -35,8 +43,11 @@ namespace WebApp.Pages.Produkter
 
         public void OnGet()
         {
+            SortFilterPage = new SortFilterPageOptions { FilterBy = ProdukterFilterBy.ByNavn, FilterValue = SearchTerm, OrderByOptions = OrderBy, PageNum = CurrentPage, PageSize = PageSize };
+            Produkts = _produktService.SortFilterPage(SortFilterPage);
             OrderByList = _htmlHelper.GetEnumSelectList<OrderByOptions>();
-            Produkts = _produktService.SortFilterPage(new SortFilterPageOptions { FilterBy = ProdukterFilterBy.ByNavn, FilterValue = SearchTerm, OrderByOptions = OrderBy});
+            TotalPages = SortFilterPage.NumPages;
+
         }
     }
 }

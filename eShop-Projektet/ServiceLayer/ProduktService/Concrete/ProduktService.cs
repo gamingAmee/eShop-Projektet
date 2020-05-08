@@ -9,16 +9,16 @@ using Datalayer.Entities;
 
 namespace ServiceLayer.ProduktService.Concrete
 {
-    public class ListProduktService : IListProduktService
+    public class ProduktService : IProduktService
     {
         private readonly EshopContext _context;
 
-        public ListProduktService(EshopContext context)
+        public ProduktService(EshopContext context)
         {
             _context = context;
         }
 
-        public IQueryable<ProduktListDto> AddProdukt()
+        public IQueryable<ProduktDto> AddProdukt()
         {
             var ProdukterQuery = _context.Produkter
                 .AsNoTracking()
@@ -26,7 +26,7 @@ namespace ServiceLayer.ProduktService.Concrete
             return ProdukterQuery;
         }
 
-        public IQueryable<ProduktListDto> GetProdukts()
+        public IQueryable<ProduktDto> GetProdukts()
         {
             var ProdukterQuery = _context.Produkter
                 .AsNoTracking()
@@ -34,7 +34,7 @@ namespace ServiceLayer.ProduktService.Concrete
             return ProdukterQuery;
         }
 
-        public IQueryable<ProduktListDto> SortFilterPage(SortFilterPageOptions options)
+        public IQueryable<ProduktDto> SortFilterPage(SortFilterPageOptions options)
         {
             var ProdukterQuery = _context.Produkter
                 .AsNoTracking()
@@ -46,9 +46,10 @@ namespace ServiceLayer.ProduktService.Concrete
             return ProdukterQuery.Page(options.PageNum - 1, options.PageSize);
         }
 
-        //public Produkt GetProduktById(int restaurantId)
-        //{
-        //    return _context.Produkter.Find(restaurantId);
-        //}
+        public ProduktDto GetProduktById(int produktId)
+        {
+            Produkt produkt = _context.Produkter.Include(p => p.ProduktBilleder).SingleOrDefault(p => p.ProduktId == produktId);
+            return new ProduktDto { ProduktId = produkt.ProduktId, Navn = produkt.Navn, Pris = produkt.Pris, Billede = produkt.ProduktBilleder };
+        }
     }
 }

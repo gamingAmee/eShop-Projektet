@@ -16,9 +16,9 @@ namespace ServiceLayer.ProduktService
         [Display(Name = "By Pris...")]
         ByPris
     }
-    public static class ProduktListDtoFilter
+    public static class ProduktDtoFilter
     {
-        public static IQueryable<ProduktListDto> FilterProduktsBy(this IQueryable<ProduktListDto> produkter, ProdukterFilterBy filterBy, string filterValue)
+        public static IQueryable<ProduktDto> FilterProduktsBy(this IQueryable<ProduktDto> produkter, ProdukterFilterBy filterBy, string filterValue)
         {
             if (string.IsNullOrEmpty(filterValue))
                 return produkter;

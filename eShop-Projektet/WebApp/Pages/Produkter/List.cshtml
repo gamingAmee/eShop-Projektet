@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{currentpage:int?}"
 @model WebApp.Pages.Produkter.ListModel
 @{
     ViewData["Title"] = "List";
@@ -25,4 +25,15 @@
     {
         <partial name="_ListPartial" model="produkter" />
     }
+</div>
+
+<div>
+    <ul class="pagination">
+        @for (var i = 1; i <= Model.TotalPages; i++)
+        {
+            <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                <a asp-page="./List" asp-route-currentpage="@i" class="page-link">@i</a>
+            </li>
+        }
+    </ul>
 </div>

@@ -30,7 +30,7 @@ namespace UnitTest
             // Use a clean instance of the context to run the test
             using (var context = new EshopContext(options))
             {
-                var service = new ListProduktService (context);
+                var service = new ProduktService (context);
                 var result = service.AddProdukt();
                 Assert.AreEqual(3, result.Count());
             }

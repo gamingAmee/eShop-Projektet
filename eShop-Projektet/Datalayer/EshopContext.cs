@@ -106,8 +106,8 @@ namespace Datalayer
 
 
             modelBuilder.Entity<Kunde>().HasData(
-                new Kunde { Navn = "Niels Schultz", Adresse = "HAHA", Email = "niel862b@elevcampus.dk", Kodeord = "Qwerty123", KundeId = 1},
-                new Kunde { Navn = "FakeNiels FakeSchultz", Adresse = "FakeHAHA", Email = "Fakeniel862b@elevcampus.dk", Kodeord = "Qwerty123", KundeId = 2}
+                new Kunde { Fornavn = "Niels", Efternavn = "Schultz", Adresse = "HAHA", Email = "niel862b@elevcampus.dk", Kodeord = "Qwerty123", KundeId = 1},
+                new Kunde { Fornavn = "FakeNiels", Efternavn = "FakeSchultz", Adresse = "FakeHAHA", Email = "Fakeniel862b@elevcampus.dk", Kodeord = "Qwerty123", KundeId = 2}
                 );
 
 

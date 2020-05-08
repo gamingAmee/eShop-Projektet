@@ -28,7 +28,7 @@ namespace WebApp
         {
             services.AddDbContext<EshopContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("EshopContext")));
-            services.AddScoped<IListProduktService, ListProduktService>();
+            services.AddScoped<IProduktService, ProduktService>();
 
             services.AddRazorPages().AddRazorPagesOptions(options =>
             {

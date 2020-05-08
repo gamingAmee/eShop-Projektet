@@ -12,11 +12,11 @@ namespace WebApp.Pages
 {
     public class IndexModel : PageModel
     {
-        public IEnumerable<ProduktListDto> Produkts { get; set; }
+        public IEnumerable<ProduktDto> Produkts { get; set; }
 
-        private readonly IListProduktService _produktService;
+        private readonly IProduktService _produktService;
 
-        public IndexModel(IListProduktService produktService)
+        public IndexModel(IProduktService produktService)
         {
             _produktService = produktService;
         }

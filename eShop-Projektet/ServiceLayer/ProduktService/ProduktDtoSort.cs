@@ -10,17 +10,17 @@ namespace ServiceLayer.ProduktService
     public enum OrderByOptions
     {
         [Display(Name = "Sort by Navn ↓...")]
-        ByNameDesc = 0,
+        ByNameAsc = 0,
         [Display(Name = "Navn ↑")]
-        ByNameAsc,
+        ByNameDesc,
         [Display(Name = "Pris ↓")]
         ByPriceDesc,
         [Display(Name = "Pris ↑")]
         ByPriceAsc
     }
-    public static class ProduktListDtoSort
+    public static class ProduktDtoSort
     {
-        public static IQueryable<ProduktListDto> OrderProduktsBy(this IQueryable<ProduktListDto> produkt, OrderByOptions orderByOptions)
+        public static IQueryable<ProduktDto> OrderProduktsBy(this IQueryable<ProduktDto> produkt, OrderByOptions orderByOptions)
         {
             switch (orderByOptions)
             {

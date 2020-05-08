@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
@@ -8,6 +9,8 @@ namespace Datalayer.Entities
     public class Produkt
     {
         public int ProduktId { get; set; }
+        [Required]
+        [Display(Name = "Produkt Name")]
         public string Navn { get; set; }
         [Column(TypeName = "decimal(8, 2)")]
         public decimal Pris { get; set; }
