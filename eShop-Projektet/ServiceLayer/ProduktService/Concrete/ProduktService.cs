@@ -72,5 +72,16 @@ namespace ServiceLayer.ProduktService.Concrete
             _context.SaveChanges();
             return updatedProdukt;
         }
+
+        public ProduktDto Delete(int produktId)
+        {
+            var produkt = _context.Produkter.Include(p => p.ProduktBilleder).Include(p => p.Producent).Include(p => p.Kategori).SingleOrDefault(p => p.ProduktId == produktId);
+            if (produkt != null)
+            {
+                _context.Produkter.Remove(produkt);
+            }
+            _context.SaveChanges();
+            return new ProduktDto { ProduktId = produkt.ProduktId, Navn = produkt.Navn, Pris = produkt.Pris, Billede = produkt.ProduktBilleder };
+        }
     }
 }

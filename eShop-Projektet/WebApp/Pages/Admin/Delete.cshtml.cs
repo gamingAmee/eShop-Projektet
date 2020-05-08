@@ -5,57 +5,43 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Datalayer;
-using Datalayer.Entities;
+using ServiceLayer.ProduktService;
+using ServiceLayer.ProduktService.Concrete;
 
 namespace WebApp.Pages.Admin
 {
     public class DeleteModel : PageModel
     {
-        private readonly Datalayer.EshopContext _context;
-
-        public DeleteModel(Datalayer.EshopContext context)
-        {
-            _context = context;
-        }
 
         [BindProperty]
-        public Produkt Produkt { get; set; }
+        public ProduktDto Produkt { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        private readonly IProduktService _produktService;
+        public DeleteModel(IProduktService produktService)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            _produktService = produktService;
 
-            Produkt = await _context.Produkter
-                .Include(p => p.Kategori)
-                .Include(p => p.Producent).FirstOrDefaultAsync(m => m.ProduktId == id);
+        }
 
+        public IActionResult OnGet(int produktId)
+        {
+            Produkt = _produktService.GetProduktById(produktId);
             if (Produkt == null)
             {
-                return NotFound();
+                return RedirectToPage("./NotFound");
             }
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public IActionResult OnPost(int produktId)
         {
-            if (id == null)
+            var produkt = _produktService.Delete(produktId);
+
+            if (produkt == null)
             {
-                return NotFound();
+                return RedirectToPage("./NotFound");
             }
-
-            Produkt = await _context.Produkter.FindAsync(id);
-
-            if (Produkt != null)
-            {
-                _context.Produkter.Remove(Produkt);
-                await _context.SaveChangesAsync();
-            }
-
-            return RedirectToPage("./Index");
+            return RedirectToPage("./AdminIndex");
         }
     }
 }

@@ -9,7 +9,8 @@ namespace ServiceLayer.ProduktService.Concrete
         IQueryable<kategori> GetKategorier();
         IQueryable<Producent> GetProducenter();
         IQueryable<ProduktDto> SortFilterPage(SortFilterPageOptions options);
-        ProduktDto GetProduktById(int restaurantId);
+        ProduktDto GetProduktById(int produktId);
         ProduktDto Update(ProduktDto updatedProdukt);
+        ProduktDto Delete(int produktId);
     }
 }
