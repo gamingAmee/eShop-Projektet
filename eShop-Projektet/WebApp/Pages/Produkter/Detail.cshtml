@@ -52,7 +52,12 @@
 <div>
     Pris: @Model.Produkt.Pris
 </div>
-
+<form method="post">
+    <input type="hidden" asp-for="Produkt.ProduktId" />
+    <div class="form-group">
+        <input type="submit" value="Læg i Kurv" class="btn btn-primary" />
+    </div>
+</form>
 
 
 

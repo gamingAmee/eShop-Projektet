@@ -34,6 +34,19 @@ namespace WebApp
             {
                 options.Conventions.AddPageRoute("/Produkter/List", "");
             });
+
+            #region SESSION
+            services.AddMemoryCache();
+
+            services.AddSession(options =>
+            {
+                // Set a short timeout for easy testing.
+                options.IdleTimeout = TimeSpan.FromSeconds(100);
+                options.Cookie.HttpOnly = true;
+                // Make the session cookie essential
+                options.Cookie.IsEssential = true;
+            });
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +65,10 @@ namespace WebApp
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            #region SESSION
+            app.UseSession();
+            #endregion
 
             app.UseRouting();
 

@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.Operations;
+using ServiceLayer.OrderService;
 using ServiceLayer.ProduktService;
 using ServiceLayer.ProduktService.Concrete;
+using WebApp.Extension;
 
 namespace WebApp.Pages.Produkter
 {
@@ -47,7 +50,6 @@ namespace WebApp.Pages.Produkter
             Produkts = _produktService.SortFilterPage(SortFilterPage);
             OrderByList = _htmlHelper.GetEnumSelectList<OrderByOptions>();
             TotalPages = SortFilterPage.NumPages;
-
         }
     }
 }
