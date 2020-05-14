@@ -6,3 +6,21 @@
 
 <h1>VareKurv</h1>
 
+<table class="table">
+    @if (Model.Produkts != null)
+    {
+        @foreach (var produkt in Model.Produkts)
+        {
+            <tr>
+                <td>@produkt.Navn</td>
+                <td>
+                    @produkt.Pris
+                </td>
+                <td>
+                    @produkt.Billede.FirstOrDefault().Billede
+                </td>
+            </tr>
+        }
+    }
+
+</table>

@@ -47,6 +47,14 @@ namespace WebApp
                 options.Cookie.IsEssential = true;
             });
             #endregion
+
+            #region MiniProfiler
+            services.AddMiniProfiler(options => 
+            {
+                options.TrackConnectionOpenClose = false;
+            })
+                .AddEntityFramework();
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +63,7 @@ namespace WebApp
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseMiniProfiler();
             }
             else
             {

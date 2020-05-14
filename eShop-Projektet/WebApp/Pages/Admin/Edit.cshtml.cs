@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Serilog;
 using ServiceLayer.ProduktService;
 using ServiceLayer.ProduktService.Concrete;
 
@@ -20,10 +22,13 @@ namespace WebApp.Pages.Admin
         public IEnumerable<SelectListItem> Producenter { get; set; }
 
         private readonly IProduktService _produktService;
-        public EditModel(IProduktService produktService)
+
+        ILogger<EditModel> logger;
+
+        public EditModel(IProduktService produktService, ILogger<EditModel> logger)
         {
             _produktService = produktService;
-
+            this.logger = logger;
         }
 
         public IActionResult OnGet(int? produktid)
@@ -76,7 +81,17 @@ namespace WebApp.Pages.Admin
                 return Page();
             }
 
-            _produktService.Update(Produkt);
+            try
+            {
+                _produktService.Update(Produkt);
+                logger.LogDebug("Produkt er blevet updatetet");
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Det virker squ ik");
+                return Page();
+            }
+            Log.CloseAndFlush();
 
             return RedirectToPage("./AdminIndex");
         }
