@@ -12,9 +12,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp", "WebApp\WebApp.csproj", "{A2269BBF-C19D-4334-805E-7B6456B915D2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Readme", "Readme", "{D4BCEED8-5074-488A-A78D-6D3BE64465C9}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\..\..\Desktop\eShopProjektet.png = ..\..\..\..\Desktop\eShopProjektet.png
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
