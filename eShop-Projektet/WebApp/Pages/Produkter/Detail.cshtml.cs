@@ -51,8 +51,7 @@ namespace WebApp.Pages.Produkter
                 ProduktDto order = Order.Produkts.Find(p => p.ProduktId == produktId);
                 if (order != null)
                 {
-                    int? styk = order.Styk += 1;
-                    ProduktDto p = new ProduktDto { ProduktId = Produkt.ProduktId, Navn = Produkt.Navn, Pris = Produkt.Pris, Styk = styk };
+                    order.Styk += 1;
                 }
                 else
                 {

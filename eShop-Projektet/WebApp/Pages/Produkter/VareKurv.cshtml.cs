@@ -15,14 +15,12 @@ namespace WebApp.Pages.Produkter
     public class VareKurvModel : PageModel
     {
         [BindProperty]
-        public IEnumerable<ProduktDto> Produkts { get; set; }
+        public List<ProduktDto> Produkts { get; set; }
 
         [BindProperty]
         public OrderDto Order { get; set; }
 
-        public int Styk { get; set; }
-
-        public decimal? Total { get; set; } = 0;
+        public decimal? Total { get; set; }
 
         private readonly IProduktService _produktService;
 
@@ -56,23 +54,6 @@ namespace WebApp.Pages.Produkter
 
         public IActionResult OnPost()
         {
-            if (HttpContext.Session.Get("order") != null)
-            {
-                Order = HttpContext.Session.Get<OrderDto>("order");
-                Produkts = Order.Produkts;
-                foreach (ProduktDto item in Produkts)
-                {
-                    if (item.Styk > 1)
-                    {
-                        Total += item.Pris * item.Styk;
-                    }
-                    else
-                    {
-                        Total += item.Pris;
-                    }
-
-                }
-            }
             return Page();
         }
     }

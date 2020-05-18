@@ -8,7 +8,6 @@ namespace ServiceLayer.OrderService
     public class OrderDto
     {
         public List<ProduktDto> Produkts { get; set; }
-        public int Styk { get; set; }
 
         public OrderDto()
         {
