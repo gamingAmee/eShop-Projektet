@@ -2,18 +2,18 @@
 
 ## Er diagram
 
-![E Shopprojektet](eShopprojektet.png)
+![E Shop Projektet](eShopProjektet.png)
 
 
 # Krav til forsiden
 
-  - [ ] Forsiden viser et antal produkter med et billede af hver, prisen, navn og en knap til at lægge varen i kurven
-  - [ ] Der benyttes Paging således at forsiden kun viser et bestemt antal produkter ad gangen. Man kan se at der evt. er flere produkter
+  - [x] Forsiden viser et antal produkter med et billede af hver, prisen, navn og en knap til at lægge varen i kurven
+  - [x] Der benyttes Paging således at forsiden kun viser et bestemt antal produkter ad gangen. Man kan se at der evt. er flere produkter
   - [ ] Der er mulighed for at søge på "Brand" og på "Type" eller lignende
-  - [ ] Der er også fritekst-søgning
-  - [ ] Der er mulighed for stigende og faldende sortering
-  - [ ] Der vises et ikon med en varekurv og et antal varer i kurven. Klikkes på ikonet, vises varekurven
-  - [ ] Lægges en vare i kurven, vises den opdaterede varekurv
+  - [x] Der er også fritekst-søgning
+  - [x] Der er mulighed for stigende og faldende sortering
+  - [x] Der vises et ikon med en varekurv og et antal varer i kurven. Klikkes på ikonet, vises varekurven
+  - [x] Lægges en vare i kurven, vises den opdaterede varekurv
 
 # Krav til varekurven
 
@@ -31,6 +31,6 @@
   
  # Administration
 
- - [ ]   En Admin side, der giver en administrator en liste over alle produkter 
- - [ ]   Admin siden skal have mulighed for at redigere produkterne og deres data.
- - [ ]   Der er fokus på at demonstrere update og delete af en graf af data.
+ - [x]   En Admin side, der giver en administrator en liste over alle produkter 
+ - [x]   Admin siden skal have mulighed for at redigere produkterne og deres data.
+ - [x]   Der er fokus på at demonstrere update og delete af en graf af data.

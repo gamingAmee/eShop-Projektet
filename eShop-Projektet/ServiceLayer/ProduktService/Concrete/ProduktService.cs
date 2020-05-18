@@ -36,7 +36,6 @@ namespace ServiceLayer.ProduktService.Concrete
 
         public IQueryable<kategori> GetKategorier()
         {
-            
             return _context.kategorier;
         }
 
@@ -59,28 +58,7 @@ namespace ServiceLayer.ProduktService.Concrete
 
         public ProduktDto GetProduktById(int produktId)
         {
-            Produkt produkt = _context.Produkter.Include(p => p.ProduktBilleder).SingleOrDefault(p => p.ProduktId == produktId);
-            return new ProduktDto { ProduktId = produkt.ProduktId, Navn = produkt.Navn, Pris = produkt.Pris, Billede = produkt.ProduktBilleder };
-        }
-
-        public ProduktDto Update(ProduktDto updatedProdukt)
-        { 
-            Produkt produkt = new Produkt { ProduktId = updatedProdukt.ProduktId ,Navn = updatedProdukt.Navn, Pris = updatedProdukt.Pris, KategoriId = updatedProdukt.KategoriId, ProducentId = updatedProdukt.ProducentId} ;
-            _context.Attach(produkt);
-            _context.Entry(produkt).State = EntityState.Modified;
-
-            _context.SaveChanges();
-            return updatedProdukt;
-        }
-
-        public ProduktDto Delete(int produktId)
-        {
-            var produkt = _context.Produkter.Include(p => p.ProduktBilleder).Include(p => p.Producent).Include(p => p.Kategori).SingleOrDefault(p => p.ProduktId == produktId);
-            if (produkt != null)
-            {
-                _context.Produkter.Remove(produkt);
-            }
-            _context.SaveChanges();
+            Produkt produkt = _context.Produkter.AsNoTracking().Include(p => p.ProduktBilleder).SingleOrDefault(p => p.ProduktId == produktId);
             return new ProduktDto { ProduktId = produkt.ProduktId, Navn = produkt.Navn, Pris = produkt.Pris, Billede = produkt.ProduktBilleder };
         }
 
@@ -90,6 +68,26 @@ namespace ServiceLayer.ProduktService.Concrete
             _context.Produkter.Add(produkt);
             _context.SaveChanges();
             return newProdukt;
+        }
+
+        public ProduktDto Update(ProduktDto updatedProdukt)
+        { 
+            Produkt produkt = new Produkt { ProduktId = updatedProdukt.ProduktId ,Navn = updatedProdukt.Navn, Pris = updatedProdukt.Pris, KategoriId = updatedProdukt.KategoriId, ProducentId = updatedProdukt.ProducentId} ;
+            _context.Produkter.Update(produkt);
+           
+            _context.SaveChanges();
+            return updatedProdukt;
+        }
+
+        public ProduktDto Delete(int produktId)
+        {
+            Produkt produkt = _context.Produkter.Include(p => p.ProduktBilleder).Include(p => p.Producent).Include(p => p.Kategori).SingleOrDefault(p => p.ProduktId == produktId);
+            if (produkt != null)
+            {
+                _context.Produkter.Remove(produkt);
+            }
+            _context.SaveChanges();
+            return new ProduktDto { ProduktId = produkt.ProduktId, Navn = produkt.Navn, Pris = produkt.Pris, Billede = produkt.ProduktBilleder };
         }
     }
 }

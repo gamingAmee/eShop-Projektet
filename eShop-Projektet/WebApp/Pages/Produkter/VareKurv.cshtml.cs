@@ -20,6 +20,10 @@ namespace WebApp.Pages.Produkter
         [BindProperty]
         public OrderDto Order { get; set; }
 
+        public int Styk { get; set; }
+
+        public decimal? Total { get; set; } = 0;
+
         private readonly IProduktService _produktService;
 
         public VareKurvModel(IProduktService produktService)
@@ -33,7 +37,41 @@ namespace WebApp.Pages.Produkter
             {
                 Order = HttpContext.Session.Get<OrderDto>("order");
                 Produkts = Order.Produkts;
-                
+                foreach (ProduktDto item in Produkts)
+                {
+                    item.Billede = _produktService.GetProduktById(item.ProduktId).Billede;
+                    if (item.Styk > 1)
+                    {
+                        Total += item.Pris * item.Styk;
+                    }
+                    else
+                    {
+                        Total += item.Pris;
+                    }
+                    
+                }
+            }
+            return Page();
+        }
+
+        public IActionResult OnPost()
+        {
+            if (HttpContext.Session.Get("order") != null)
+            {
+                Order = HttpContext.Session.Get<OrderDto>("order");
+                Produkts = Order.Produkts;
+                foreach (ProduktDto item in Produkts)
+                {
+                    if (item.Styk > 1)
+                    {
+                        Total += item.Pris * item.Styk;
+                    }
+                    else
+                    {
+                        Total += item.Pris;
+                    }
+
+                }
             }
             return Page();
         }

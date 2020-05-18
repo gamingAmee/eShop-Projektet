@@ -48,14 +48,22 @@ namespace WebApp.Pages.Produkter
             if (HttpContext.Session.Get("order") != null)
             {
                 Order = HttpContext.Session.Get<OrderDto>("order");
-                ProduktDto p = new ProduktDto { ProduktId = Produkt.ProduktId, Navn = Produkt.Navn, Pris = Produkt.Pris };
-                Order.Produkts.Add(p);
-
+                ProduktDto order = Order.Produkts.Find(p => p.ProduktId == produktId);
+                if (order != null)
+                {
+                    int? styk = order.Styk += 1;
+                    ProduktDto p = new ProduktDto { ProduktId = Produkt.ProduktId, Navn = Produkt.Navn, Pris = Produkt.Pris, Styk = styk };
+                }
+                else
+                {
+                    ProduktDto p = new ProduktDto { ProduktId = Produkt.ProduktId, Navn = Produkt.Navn, Pris = Produkt.Pris, Styk = 1 };
+                    Order.Produkts.Add(p);
+                }
                 HttpContext.Session.Set("order", Order);
             }
             else
             {
-                ProduktDto p = new ProduktDto { ProduktId = Produkt.ProduktId, Navn = Produkt.Navn, Pris = Produkt.Pris };
+                ProduktDto p = new ProduktDto { ProduktId = Produkt.ProduktId, Navn = Produkt.Navn, Pris = Produkt.Pris, Styk = 1 };
                 Order.Produkts.Add(p);
 
                 HttpContext.Session.Set("order", Order);

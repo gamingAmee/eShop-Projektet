@@ -19,5 +19,7 @@ namespace ServiceLayer.ProduktService
         public string Kategori { get; set; }
         public int? ProducentId { get; set; }
         public string Producent { get; set; }
+
+        public int? Styk { get; set; }
     }
 }

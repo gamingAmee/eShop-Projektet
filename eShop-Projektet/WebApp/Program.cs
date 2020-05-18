@@ -17,6 +17,7 @@ namespace WebApp
         public static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
+                .Enrich.FromLogContext()
              .MinimumLevel.Debug()
              .WriteTo.Console()
              .WriteTo.File("logs\\myapp.txt", rollingInterval: RollingInterval.Day)

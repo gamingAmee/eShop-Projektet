@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp", "WebApp\WebApp.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Readme", "Readme", "{D4BCEED8-5074-488A-A78D-6D3BE64465C9}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\..\..\Downloads\eShopprojektet.png = ..\..\..\..\Downloads\eShopprojektet.png
+		..\..\..\..\Desktop\eShopProjektet.png = ..\..\..\..\Desktop\eShopProjektet.png
 	EndProjectSection
 EndProject
 Global
