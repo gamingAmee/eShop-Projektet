@@ -27,11 +27,11 @@ namespace WebApp.Pages.Produkter
             _produktService = produktService;
         }
 
-        public IActionResult OnGet(int? produktId)
+        public async Task<IActionResult> OnGetAsync(int? produktId)
         {
             if (produktId != null)
             {
-                Produkt = _produktService.GetProduktById(produktId.Value);
+                Produkt = await _produktService.GetProduktById(produktId.Value);
             }
 
             if (Produkt == null)
@@ -41,9 +41,9 @@ namespace WebApp.Pages.Produkter
             return Page();
         }
 
-        public IActionResult OnPost(int produktId)
+        public async Task<IActionResult> OnPostAsync(int produktId)
         {
-            Produkt = _produktService.GetProduktById(produktId);
+            Produkt = await _produktService.GetProduktById(produktId);
 
             if (HttpContext.Session.Get("order") != null)
             {

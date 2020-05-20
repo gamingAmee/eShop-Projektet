@@ -31,7 +31,7 @@ namespace WebApp.Pages.Admin
             this.logger = logger;
         }
 
-        public IActionResult OnGet(int? produktid)
+        public async Task<IActionResult> OnGetAsync(int? produktid)
         {
             Kategorier = _produktService.GetKategorier().Select(
                 kategorinavn => new SelectListItem
@@ -49,7 +49,7 @@ namespace WebApp.Pages.Admin
 
             if (produktid != null)
             {
-                Produkt = _produktService.GetProduktById(produktid.Value);
+                Produkt = await _produktService.GetProduktById(produktid.Value);
             }
 
             if (Produkt == null)

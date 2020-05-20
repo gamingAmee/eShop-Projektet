@@ -1,5 +1,6 @@
 ﻿using Datalayer.Entities;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ServiceLayer.ProduktService.Concrete
 {
@@ -9,9 +10,9 @@ namespace ServiceLayer.ProduktService.Concrete
         IQueryable<kategori> GetKategorier();
         IQueryable<Producent> GetProducenter();
         IQueryable<ProduktDto> SortFilterPage(SortFilterPageOptions options);
-        ProduktDto GetProduktById(int produktId);
-        ProduktDto Update(ProduktDto updatedProdukt);
-        ProduktDto Delete(int produktId);
-        ProduktDto Create(ProduktDto newProdukt);
+        Task<ProduktDto> GetProduktById(int produktId);
+        Task<ProduktDto> Update(ProduktDto updatedProdukt);
+        Task<ProduktDto> Delete(int produktId);
+        Task<ProduktDto> Create(ProduktDto newProdukt);
     }
 }

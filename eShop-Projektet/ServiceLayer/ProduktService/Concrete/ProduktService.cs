@@ -6,6 +6,7 @@ using System.Linq;
 using Datalayer;
 using Datalayer.QueryObjects;
 using Datalayer.Entities;
+using System.Threading.Tasks;
 
 namespace ServiceLayer.ProduktService.Concrete
 {
@@ -56,37 +57,37 @@ namespace ServiceLayer.ProduktService.Concrete
             return ProdukterQuery.Page(options.PageNum - 1, options.PageSize);
         }
 
-        public ProduktDto GetProduktById(int produktId)
+        public async Task<ProduktDto> GetProduktById(int produktId)
         {
-            Produkt produkt = _context.Produkter.AsNoTracking().Include(p => p.ProduktBilleder).SingleOrDefault(p => p.ProduktId == produktId);
+            Produkt produkt = await _context.Produkter.AsNoTracking().Include(p => p.ProduktBilleder).SingleOrDefaultAsync(p => p.ProduktId == produktId);
             return new ProduktDto { ProduktId = produkt.ProduktId, Navn = produkt.Navn, Pris = produkt.Pris, Billede = produkt.ProduktBilleder };
         }
 
-        public ProduktDto Create(ProduktDto newProdukt)
+        public async Task<ProduktDto> Create(ProduktDto newProdukt)
         {
             Produkt produkt = new Produkt { Navn = newProdukt.Navn, Pris = newProdukt.Pris, KategoriId = newProdukt.KategoriId, ProducentId = newProdukt.ProducentId };
-            _context.Produkter.Add(produkt);
-            _context.SaveChanges();
+             _context.Produkter.Add(produkt);
+           await _context.SaveChangesAsync();
             return newProdukt;
         }
 
-        public ProduktDto Update(ProduktDto updatedProdukt)
+        public async Task<ProduktDto> Update(ProduktDto updatedProdukt)
         { 
             Produkt produkt = new Produkt { ProduktId = updatedProdukt.ProduktId ,Navn = updatedProdukt.Navn, Pris = updatedProdukt.Pris, KategoriId = updatedProdukt.KategoriId, ProducentId = updatedProdukt.ProducentId} ;
-            _context.Produkter.Update(produkt);
-           
-            _context.SaveChanges();
+             _context.Produkter.Update(produkt);
+
+            await _context.SaveChangesAsync();
             return updatedProdukt;
         }
 
-        public ProduktDto Delete(int produktId)
+        public async Task<ProduktDto> Delete(int produktId)
         {
-            Produkt produkt = _context.Produkter.Include(p => p.ProduktBilleder).Include(p => p.Producent).Include(p => p.Kategori).SingleOrDefault(p => p.ProduktId == produktId);
+            Produkt produkt = await _context.Produkter.Include(p => p.ProduktBilleder).Include(p => p.Producent).Include(p => p.Kategori).SingleOrDefaultAsync(p => p.ProduktId == produktId);
             if (produkt != null)
             {
                 _context.Produkter.Remove(produkt);
             }
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return new ProduktDto { ProduktId = produkt.ProduktId, Navn = produkt.Navn, Pris = produkt.Pris, Billede = produkt.ProduktBilleder };
         }
     }

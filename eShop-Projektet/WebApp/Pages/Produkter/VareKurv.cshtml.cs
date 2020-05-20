@@ -20,7 +20,7 @@ namespace WebApp.Pages.Produkter
         [BindProperty]
         public OrderDto Order { get; set; }
 
-        public decimal? Total { get; set; }
+        public decimal? Total { get; set; } = 0;
 
         private readonly IProduktService _produktService;
 
@@ -29,7 +29,7 @@ namespace WebApp.Pages.Produkter
             _produktService = produktService;
         }
 
-        public IActionResult OnGet()
+        public  IActionResult OnGet()
         {
             if (HttpContext.Session.Get("order") != null)
             {
@@ -37,7 +37,7 @@ namespace WebApp.Pages.Produkter
                 Produkts = Order.Produkts;
                 foreach (ProduktDto item in Produkts)
                 {
-                    item.Billede = _produktService.GetProduktById(item.ProduktId).Billede;
+                    item.Billede = _produktService.GetProduktById(item.ProduktId).Result.Billede;
                     if (item.Styk > 1)
                     {
                         Total += item.Pris * item.Styk;

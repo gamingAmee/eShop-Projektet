@@ -28,9 +28,9 @@ namespace WebApp.Pages.Admin
             this.logger = logger; 
         }
 
-            public IActionResult OnGet(int produktId)
+            public async Task<IActionResult> OnGetAsync(int produktId)
         {
-            Produkt = _produktService.GetProduktById(produktId);
+            Produkt = await _produktService.GetProduktById(produktId);
             if (Produkt == null)
             {
                 return RedirectToPage("./NotFound");

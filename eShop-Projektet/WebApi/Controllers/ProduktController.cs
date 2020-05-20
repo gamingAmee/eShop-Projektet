@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.ProduktService.Concrete;
 using ServiceLayer.ProduktService;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApi.Controllers
 {
@@ -22,22 +23,22 @@ namespace WebApi.Controllers
 
         // GET: api/Produkt
         [HttpGet]
-        public ActionResult<IEnumerable<ProduktDto>> GetProdukts()
+        public async Task<ActionResult<IEnumerable<ProduktDto>>> GetProdukts()
         {
-            return _produktService.GetProdukts().ToList();
+            return await _produktService.GetProdukts().ToListAsync();
         }
 
         [HttpPost]
-        public ActionResult<ProduktDto> CreateProdukt(ProduktDto produktDTO)
+        public async Task<ActionResult<ProduktDto>> CreateProdukt(ProduktDto produktDTO)
         {
-            return _produktService.Create(produktDTO);
+            return await _produktService.Create(produktDTO);
         }
 
         // GET: api/Produkt/id
         [HttpGet("{id}")]
-        public ActionResult<ProduktDto> GetProdukt(int id)
+        public async Task<ActionResult<ProduktDto>> GetProdukt(int id)
         {
-            ProduktDto produkt = _produktService.GetProduktById(id);
+            var produkt = await _produktService.GetProduktById(id);
 
             if (produkt == null)
             {
@@ -48,7 +49,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult EditProdukt(int id, ProduktDto produktDTO)
+        public async Task<IActionResult> EditProdukt(int id, ProduktDto produktDTO)
         {
 
             if (id != produktDTO.ProduktId)
@@ -56,7 +57,7 @@ namespace WebApi.Controllers
                 return BadRequest();
             }
 
-            ProduktDto produkt = _produktService.GetProduktById(id);
+            ProduktDto produkt = await _produktService.GetProduktById(id);
             if (produkt == null)
             {
                 return NotFound();
@@ -75,11 +76,11 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteProdukt(int id)
+        public async Task<IActionResult> DeleteProdukt(int id)
         {
             try
             {
-                _produktService.Delete(id);
+                await _produktService.Delete(id);
             }
             catch 
             {
