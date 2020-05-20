@@ -14,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using ServiceLayer.ProduktService.Concrete;
 using Microsoft.OpenApi.Models;
+using ServiceLayer.ProduktService;
 
 namespace WebApi
 {
@@ -29,13 +30,17 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<EshopContext>(options =>
-            //options.UseSqlServer(Configuration.GetConnectionString("EshopContext")));
-            services.AddDbContext<EshopContext>(opt =>
-               opt.UseInMemoryDatabase("WebApi"));
+            services.Configure<ProduktDto>(Configuration);
+            services.AddDbContext<EshopContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("EshopContext")));
+            //services.AddDbContext<EshopContext>(opt =>
+            //   opt.UseInMemoryDatabase("WebApi"));
             services.AddScoped<IProduktService, ProduktService>();
 
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                ); 
 
             services.AddSwaggerGen(c =>
             {

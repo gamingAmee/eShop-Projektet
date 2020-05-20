@@ -38,33 +38,40 @@ namespace WebApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ProduktDto>> GetProdukt(int id)
         {
-            var produkt = await _produktService.GetProduktById(id);
-
-            if (produkt == null)
+            try
             {
-                return NotFound();
+                ProduktDto produkt = await _produktService.GetProduktById(id);
+
+                if (produkt == null)
+                {
+                    return NotFound();
+                }
+
+                return produkt;
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex);
             }
 
-            return produkt;
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> EditProdukt(int id, ProduktDto produktDTO)
         {
 
-            if (id != produktDTO.ProduktId)
-            {
-                return BadRequest();
-            }
-
-            ProduktDto produkt = await _produktService.GetProduktById(id);
-            if (produkt == null)
-            {
-                return NotFound();
-            }
-
             try
             {
+                if (id != produktDTO.ProduktId)
+                {
+                    return BadRequest();
+                }
+
+                ProduktDto produkt = await _produktService.GetProduktById(id);
+                if (produkt == null)
+                {
+                    return NotFound();
+                }
                 produkt = produktDTO;
             }
             catch
@@ -82,7 +89,7 @@ namespace WebApi.Controllers
             {
                 await _produktService.Delete(id);
             }
-            catch 
+            catch
             {
                 return NotFound();
             }
