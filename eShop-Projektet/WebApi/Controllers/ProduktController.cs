@@ -20,13 +20,20 @@ namespace WebApi.Controllers
             _produktService = produktService;
         }
 
-        // GET: api/TodoItems
+        // GET: api/Produkt
         [HttpGet]
         public ActionResult<IEnumerable<ProduktDto>> GetProdukts()
         {
             return _produktService.GetProdukts().ToList();
         }
 
+        [HttpPost]
+        public ActionResult<ProduktDto> CreateProdukt(ProduktDto produktDTO)
+        {
+            return _produktService.Create(produktDTO);
+        }
+
+        // GET: api/Produkt/id
         [HttpGet("{id}")]
         public ActionResult<ProduktDto> GetProdukt(int id)
         {
@@ -38,12 +45,6 @@ namespace WebApi.Controllers
             }
 
             return produkt;
-        }
-
-        [HttpPost]
-        public ActionResult<ProduktDto> CreateProdukt(ProduktDto produktDTO)
-        {
-            return _produktService.Create(produktDTO);
         }
 
         [HttpPut("{id}")]
