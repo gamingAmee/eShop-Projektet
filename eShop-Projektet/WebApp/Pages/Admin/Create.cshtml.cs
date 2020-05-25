@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Logging;
 using ServiceLayer.ProduktService;
 using ServiceLayer.ProduktService.Concrete;
 
@@ -17,11 +18,13 @@ namespace WebApp.Pages.Admin
         public IEnumerable<SelectListItem> Kategorier { get; set; }
         public IEnumerable<SelectListItem> Producenter { get; set; }
 
+        ILogger<CreateModel> logger;
+
         private readonly IProduktService _produktService;
-        public CreateModel(IProduktService produktService)
+        public CreateModel(IProduktService produktService, ILogger<CreateModel> logger)
         {
             _produktService = produktService;
-
+            this.logger = logger;
         }
 
         public IActionResult OnGet()
@@ -64,8 +67,17 @@ namespace WebApp.Pages.Admin
             {
                 return Page();
             }
-
-            _produktService.Create(Produkt);
+            try
+            {
+                _produktService.Create(Produkt);
+                logger.LogDebug("Produkt er blevet Oprettet");
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error");
+                return Page();
+            }
+            
 
             return RedirectToPage("./AdminIndex");
         }

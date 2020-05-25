@@ -20,15 +20,15 @@ namespace WebApp.Pages.Admin
 
         private readonly IProduktService _produktService;
 
-        ILogger<EditModel> logger;
+        ILogger<DeleteModel> logger;
 
-        public DeleteModel(IProduktService produktService, ILogger<EditModel> logger)
+        public DeleteModel(IProduktService produktService, ILogger<DeleteModel> logger)
         {
             _produktService = produktService;
-            this.logger = logger; 
+            this.logger = logger;
         }
 
-            public async Task<IActionResult> OnGetAsync(int produktId)
+        public async Task<IActionResult> OnGetAsync(int produktId)
         {
             Produkt = await _produktService.GetProduktById(produktId);
             if (Produkt == null)
@@ -43,11 +43,11 @@ namespace WebApp.Pages.Admin
             try
             {
                 _produktService.Delete(produktId);
-                logger.LogDebug("Produkt er blevet updatetet");
+                logger.LogDebug("Produkt er blevet Slettet");
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Det virker ikke");
+                logger.LogError(ex, "Error");
                 return Page();
             }
 

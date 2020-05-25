@@ -88,7 +88,7 @@ namespace WebApp.Pages.Admin
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Det virker squ ik");
+                logger.LogError(ex, "Error");
                 return Page();
             }
             Log.CloseAndFlush();
