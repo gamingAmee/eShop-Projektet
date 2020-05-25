@@ -4,6 +4,9 @@
 
 ![E Shop Projektet](eShopProjektet.png)
 
+## Arkitekturen
+
+![E Shop Projektet](arkitekturen.png)
 
 # Krav til forsiden
 
