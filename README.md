@@ -6,7 +6,7 @@
 
 ## Arkitekturen
 
-![E Shop Projektet](arkitekturen.png)
+![E Shop Projektet](arkitekturen.PNG)
 
 # Krav til forsiden
 
