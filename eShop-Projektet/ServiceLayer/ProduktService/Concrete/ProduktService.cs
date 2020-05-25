@@ -27,6 +27,10 @@ namespace ServiceLayer.ProduktService.Concrete
             return ProdukterQuery;
         }
 
+        /// <summary>
+        /// Gets All Produkts
+        /// </summary>
+        /// <returns></returns>
         public IQueryable<ProduktDto> GetProdukts()
         {
             var ProdukterQuery = _context.Produkter
@@ -35,16 +39,30 @@ namespace ServiceLayer.ProduktService.Concrete
             return ProdukterQuery;
         }
 
+        /// <summary>
+        /// Gets All Kategorier
+        /// </summary>
+        /// <returns></returns>
         public IQueryable<kategori> GetKategorier()
         {
             return _context.kategorier;
         }
 
+
+        /// <summary>
+        /// Gets All Producenter
+        /// </summary>
+        /// <returns></returns>
         public IQueryable<Producent> GetProducenter()
         {
             return _context.Producenter;
         }
 
+        /// <summary>
+        /// Gets Produkts with Sort, filter og page
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
         public IQueryable<ProduktDto> SortFilterPage(SortFilterPageOptions options)
         {
             var ProdukterQuery = _context.Produkter
@@ -57,12 +75,22 @@ namespace ServiceLayer.ProduktService.Concrete
             return ProdukterQuery.Page(options.PageNum - 1, options.PageSize);
         }
 
+        /// <summary>
+        /// Gets Produkt By Id
+        /// </summary>
+        /// <param name="produktId"></param>
+        /// <returns></returns>
         public async Task<ProduktDto> GetProduktById(int produktId)
         {
             Produkt produkt = await _context.Produkter.AsNoTracking().Include(p => p.ProduktBilleder).SingleOrDefaultAsync(p => p.ProduktId == produktId);
             return new ProduktDto { ProduktId = produkt.ProduktId, Navn = produkt.Navn, Pris = produkt.Pris, Billede = produkt.ProduktBilleder };
         }
 
+        /// <summary>
+        /// Creates a Produkt 
+        /// </summary>
+        /// <param name="newProdukt"></param>
+        /// <returns></returns>
         public async Task<ProduktDto> Create(ProduktDto newProdukt)
         {
             Produkt produkt = new Produkt { Navn = newProdukt.Navn, Pris = newProdukt.Pris, KategoriId = newProdukt.KategoriId, ProducentId = newProdukt.ProducentId };
@@ -71,6 +99,11 @@ namespace ServiceLayer.ProduktService.Concrete
             return newProdukt;
         }
 
+        /// <summary>
+        /// Update Produkt
+        /// </summary>
+        /// <param name="updatedProdukt"></param>
+        /// <returns></returns>
         public async Task<ProduktDto> Update(ProduktDto updatedProdukt)
         { 
             Produkt produkt = new Produkt { ProduktId = updatedProdukt.ProduktId ,Navn = updatedProdukt.Navn, Pris = updatedProdukt.Pris, KategoriId = updatedProdukt.KategoriId, ProducentId = updatedProdukt.ProducentId} ;
@@ -80,6 +113,11 @@ namespace ServiceLayer.ProduktService.Concrete
             return updatedProdukt;
         }
 
+        /// <summary>
+        /// Deletes Produkt
+        /// </summary>
+        /// <param name="produktId"></param>
+        /// <returns></returns>
         public async Task<ProduktDto> Delete(int produktId)
         {
             Produkt produkt = await _context.Produkter.Include(p => p.ProduktBilleder).Include(p => p.Producent).Include(p => p.Kategori).SingleOrDefaultAsync(p => p.ProduktId == produktId);

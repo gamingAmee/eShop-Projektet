@@ -17,7 +17,7 @@
 
 # Krav til varekurven
 
-  - [ ] Varekurven viser en opdateret liste af valgte produkter, med billede, navn, styk-pris, antal (skal kunne ændres) samt linjepriseen.
+  - [x] (Delvis) Varekurven viser en opdateret liste af valgte produkter, med billede, navn, styk-pris, antal (skal kunne ændres) samt linjepriseen.
   - [ ] Der skal være en Update knap, som opdaterer priserne hvis man ændrer antallet.
   - [ ] Det skal være muligt at fjerne et produkt fra varekurven, hvis man fortryder valget
   - [ ] Der skal være en Checkout knap, som fører til Checkout-siden
