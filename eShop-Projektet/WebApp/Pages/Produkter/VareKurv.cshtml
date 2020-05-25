@@ -1,0 +1,63 @@
+﻿@page
+
+@model WebApp.Pages.Produkter.VareKurvModel
+@{
+    ViewData["Title"] = "VareKurv";
+}
+
+<h1>VareKurv</h1>
+<form method="post">
+    <table class="table">
+        @if (Model.Produkts != null)
+        {
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th>Antal</th>
+                    <th>Pris</th>
+                    <th>Total</th>
+                    <th>Slet</th>
+                </tr>
+            </thead>
+            @foreach (var produkt in Model.Produkts)
+            {
+                <tr>
+                    <td>
+                        <img src="@produkt.Billede.FirstOrDefault().Billede" class="varekurvImg" />
+                    </td>
+                    <td>
+                        @produkt.Navn
+                    </td>
+                    <td>
+                        <input asp-for="@produkt.Styk" />
+                    </td>
+                    <td>
+                        @produkt.Pris
+                    </td>
+                    <td>
+                        @Model.Total
+                    </td>
+                    <td>
+                        <i class="far fa-times-circle"></i>
+                    </td>
+                </tr>
+            }
+        }
+
+    </table>
+    <div class="form-group">
+        <input type="hidden" asp-for="Produkts" />
+        <input type="submit" value="Update" class="btn btn-primary" />
+    </div>
+
+    <a asp-page="./List" class="btn btn-primary">
+        Forsæt med at handle
+    </a>
+
+    <a asp-page="./CheckOut" class="btn btn-primary">
+        Checkout
+    </a>
+
+</form>
+

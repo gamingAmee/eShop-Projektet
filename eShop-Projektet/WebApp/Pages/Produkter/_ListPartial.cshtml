@@ -1,0 +1,25 @@
+﻿@using ServiceLayer.ProduktService;
+@model ProduktDto
+
+<div class="col-sm-3">
+    <div class="card my-3">
+        @if (Model.Billede.Count >= 1)
+        {
+            <img class="card-img-top" src="@Model.Billede.FirstOrDefault().Billede">
+        }
+        else
+        {
+            <img class="card-img-top" src="https://cdn.vanderbilt.edu/vu-wp0/wp-content/uploads/sites/181/2019/09/09091628/Image-Coming-Soon.png">
+        }
+        <div class="card-body">
+            <h5 class="card-title">@Model.Navn</h5>
+            <p class="card-text">@Model.Pris</p>
+        </div>
+        <div class="card-footer text-muted">
+            <a asp-page="./Detail" asp-route-produktId="@Model.ProduktId">
+                <i class="fas fa-info-circle"></i>
+            </a>
+        </div>
+    </div>
+</div>
+

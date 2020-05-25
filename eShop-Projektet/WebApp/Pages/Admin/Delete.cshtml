@@ -1,0 +1,17 @@
+﻿@page "{produktid}"
+@model WebApp.Pages.Admin.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete!</h1>
+
+<div class="alert alert-danger">
+    Are you sure you want to delete @Model.Produkt.Navn?
+</div>
+<form method="post">
+    <button type="submit" class="btn btn-danger">Yes!</button>
+    <a asp-page="./AdminIndex" class="btn btn-outline-danger">Cancel</a>
+</form>
+

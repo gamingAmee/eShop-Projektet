@@ -1,0 +1,25 @@
+﻿@page
+@model WebApp.Pages.Admin.AdminListModel
+@{
+    ViewData["Title"] = "AdminList";
+}
+<a asp-page="./Create" class="btn btn-info">Add New</a>
+
+<table class="table">
+    @foreach (var produkt in Model.Produkts)
+    {
+        <tr>
+            <td>@produkt.Navn</td>
+            <td>
+                <a asp-page="./Edit" asp-route-produktId="@produkt.ProduktId">
+                    <i class="fas fa-edit"></i>
+                </a>
+            </td>
+            <td>
+                <a asp-page="./Delete" asp-route-produktId="@produkt.ProduktId">
+                    <i class="fas fa-trash"></i>
+                </a>
+            </td>
+        </tr>
+    }
+</table>
