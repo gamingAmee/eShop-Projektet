@@ -48,7 +48,7 @@ namespace WebApp.Pages.Admin
         }
 
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             Kategorier = _produktService.GetKategorier().Select(
                 kategorinavn => new SelectListItem
@@ -69,7 +69,7 @@ namespace WebApp.Pages.Admin
             }
             try
             {
-                _produktService.Create(Produkt);
+               await _produktService.Create(Produkt);
                 logger.LogDebug("Produkt er blevet Oprettet");
             }
             catch (Exception ex)

@@ -95,7 +95,7 @@ namespace ServiceLayer.ProduktService.Concrete
         {
             Produkt produkt = new Produkt { Navn = newProdukt.Navn, Pris = newProdukt.Pris, KategoriId = newProdukt.KategoriId, ProducentId = newProdukt.ProducentId };
              _context.Produkter.Add(produkt);
-           await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
             return newProdukt;
         }
 
@@ -124,8 +124,8 @@ namespace ServiceLayer.ProduktService.Concrete
             if (produkt != null)
             {
                 _context.Produkter.Remove(produkt);
+                await _context.SaveChangesAsync();
             }
-            await _context.SaveChangesAsync();
             return new ProduktDto { ProduktId = produkt.ProduktId, Navn = produkt.Navn, Pris = produkt.Pris, Billede = produkt.ProduktBilleder };
         }
     }

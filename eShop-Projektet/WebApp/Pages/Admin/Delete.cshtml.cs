@@ -38,11 +38,11 @@ namespace WebApp.Pages.Admin
             return Page();
         }
 
-        public IActionResult OnPost(int produktId)
+        public async Task<IActionResult> OnPostAsync(int produktId)
         {
             try
             {
-                _produktService.Delete(produktId);
+               await _produktService.Delete(produktId);
                 logger.LogDebug("Produkt er blevet Slettet");
             }
             catch (Exception ex)
